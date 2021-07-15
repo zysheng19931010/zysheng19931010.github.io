@@ -152,19 +152,270 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Vue2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Vue2-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/14/Vue2/">Vue2</a>
+      <a class="article-title" href="/2021/07/15/Vue2-2/">Vue2</a>
     </h1>
   
 
         
-        <a href="/2021/07/14/Vue2/" class="archive-article-date">
+        <a href="/2021/07/15/Vue2-2/" class="archive-article-date">
+  	<time datetime="2021-07-15T14:36:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="第二章-Vue基础语法"><a href="#第二章-Vue基础语法" class="headerlink" title="第二章 Vue基础语法"></a>第二章 Vue基础语法</h2><p>代码规范：缩进4个空格，2个空格（推荐2个空格缩进）<br>CLI（脚手架）-&gt;editconfig2个空格</p>
+<p>模板语法<br>1.插值操作<br>2.绑定属性<br>3.计算属性<br>4.事件监听<br>5.条件判断<br>6.循环遍历<br>7.阶段案例<br>8.v-model</p>
+<p>1.插值操作<br>*Mustache语法：<br>如何将data中的文本数据，插入到HTML中呢？<br>我们已经学习过了，可以通过Mustache语法（也就是双大括号）。<br>Mustache：胡子/胡须。<br>我们可以像下面这样来使用，并且数据是响应式的：<br>插入到标签中、使用了两个Mustache、也可以是一个表达式<br>代码在学习文件中。</p>
+<pre><code>*v-once：
+但是，在某些情况下，我们可能不希望界面随意的跟随改变。
+    这个时候，我们就可以使用一个Vue的指令。
+v-once：
+    该指令后面不需要跟任何表达式（比如之前的v-for后面是有跟表达式的
+    该指令表示元素和组件（组件后面才会学习）只渲染一次，不会随着数据的改变而改变。
+代码在学习文件中。
+
+*v-html：
+某些情况下，我们从服务器请求到的数据本身就是一个HTML代码
+    如果我们直接通过&#123;&#123;&#125;&#125;来输出，会将HTML代码也一起输出。
+		但是我们可能希望的是按照HTML格式进行解析，并且显示对应得内容。
+	如果我们希望解析出HTML展示
+		可以使用v-html指令
+			该指令后面往往会跟上一个string类型
+			会将string的html解析出来并且进行渲染
+	代码在学习文件中。
+
+	*v-text（用起来不太灵活）：
+	v-text作用和Mustache比较相似：都是用于将数据显示在界面中
+	v-text通常情况下，接受一个string类型
+	代码在学习文件中。
+
+	*v-pre：
+	v-pre用于跳过这个元素和它子元素的编译过程，用于显示原本的mustache语法。
+	比如下面的代码：
+		第一个h2元素中的内容会被编译解析出来对应的内容。
+		第二个h2元素中会直接显示&#123;&#123;message&#125;&#125;
+代码在学习文件中。
+
+*v-cloak
+在某些情况下，我们浏览器可能会直接显然出未编译的mustache标签。
+cloak：斗篷
+代码在学习文件中。
+</code></pre>
+<p>2.绑定属性<br>前面我们学习的指令主要作用是将值插入到我们模板的内容当中。<br>但是，除了内容需要动态来决定外，某些属性我们也希望动态绑定。<br>比如动态绑定a元素的href属性。<br>比如动态绑定img元素的src属性。<br>这个时候，我们可以使用v-bind指令：<br>作用：动态绑定属性。<br>缩写：：<br>预期：any(with argument) | Object(without argument)<br>参数：attrOrProp(optional)<br>具体学习在学习文件代码中。</p>
+<pre><code>v-bind用于绑定一个或者多个属性值，或者向另一个组件传递props值（这个学到组件时再介绍）
+在开发中，有哪些属性需要动态进行绑定呢？
+    还是有很多的，比如图片的链接src、网站的链接href、动态绑定一些类、样式等等。
+比如通过vue实例中的data绑定元素的src和href，如代码。
+
+*v-bind绑定class
+很多时候，我们希望动态的来切换class，比如：
+    当数据为某个状态时，字体显示红色。
+    当数据另一个状态时，字体显示蓝色。
+绑定class有两种方式：
+    对象语法
+    数组语法
+
+绑定方式：对象语法 
+    对象语法的含义是：class后面跟的是一个对象。（如代码）
+    如果过于复杂，可以放在一个methods或者computed中。（如代码）
+
+绑定方式：数组语法
+    数组语法的含义是：class后面跟的是一个数组。
+    如果过于复杂，可以放在一个methods或者computed中。（如代码）
+
+*v-bind绑定style
+我们可以利用v-bind：style来绑定一些CSS内联样式。
+在写CSS属性名的时候，比如font-size
+    我们可以使用驼峰式（camelCase）fontSize
+    或短横线分割（kebab-case,记得用单引号括起来）‘font-size’
+绑定class有两种方式：
+    对象语法
+    数组语法
+</code></pre>
+<p>3.计算属性<br>什么是计算属性？<br>我们知道，在模板中可以直接通过插值语法显示一些data中数据。<br>但是在某些情况，我们可能需要对数据进行一些转化后再显示，或者需要将多个数据结合起来进行显示。<br>比如我们有firstName和lastName两个变量，我们需要显示完整的名称。<br>但是如果多个地方都需要显示完整的名称，我们就需要写多个<br>我们可以将上面的代码换成计算属性：<br>OK，我们发现计算属性是写在实例的computed选项中的。</p>
+<pre><code>*计算属性的setter和getter
+    每个计算属性都包含一个getter和一个setter
+        在上面的例子中，我们只是使用getter来读取。
+        在某些情况下，你也可以提供一个setter方法（不常用）。
+        在需要写setter的时候，看代码。
+
+*计算属性的缓存
+     我们可能会考虑这样的一个问题：
+        methods和computed看起来都可以实现我们的功能，
+        那为什么还要多一个计算属性这个东西呢？
+        原因：计算属性会进行缓存，如果多次使用时，计算属性只会调用一次。
+        看代码。
+</code></pre>
+<p>4.事件监听<br>在前端开发中，我们需要经常和用于交互。<br>这个时候，我们就必须监听用户发生的时间，比如点击、拖拽、键盘事件等等。<br>在Vue中如何监听事件呢？使用v-on指令<br>v-on介绍：<br>作用：绑定事件监听器<br>缩写：@<br>预期：Function | Inline Statement | Object<br>参数：event<br>具体学习如代码。</p>
+<pre><code>*v-on基础
+    如代码。
+
+*v-on参数
+    当通过methods中定义方法，以供@click调用时，需要注意参数问题：
+    情况一：如果该方法不需要额外参数，那么方法后的（）可以不添加。
+        但是注意：如果方法本身中有一个参数，那么会默认将原生事件event参数传递进去。
+    情况二：如果需要同时传入某个参数，同时需要event时，可以通过$event传入事件。
+
+*v-on修饰符
+    在某些情况下，我们拿到event的目的可能是进行一些事件处理。
+    Vue提供了修饰符来帮助我们方便的处理一些事件：
+        .stop - 调用 event.stopPropagation().
+        .prevent - 调用 event.preventDefault().
+        .&#123;keyCode|keyAlias&#125; - 只当事件是从特定键触发时才触发回调。
+        .native - 监听组件根元素的原生事件。
+        .once - 只触发一次回调。
+</code></pre>
+<p>5.条件判断<br>v-if、v-else-if、v-else<br>这三个指令与JavaScript的条件语句if、else、else if类似。<br>Vue的条件指令可以根据表达式的值在DOM中渲染或销毁元素或组件。<br>具体案例如代码。<br>v-if的原理：<br>v-if后面的条件为false时，对应的元素以及其子元素不会渲染。<br>也就是根本没有不会有对应的标签出现在DOM中。<br>条件渲染案例：<br>用户在登录时，可以切换使用用户账号登录还是邮箱地址登录。<br>具体如代码。<br>案例小问题：<br>小问题：<br>如果我们在有输入内容的情况下，切换了类型，我们会发现文字依然显示之前的输入内容。<br>但是按道理讲，我们应该切换到另一个input元素中了。<br>在另一个input元素中，我们并没有输入内容。<br>为什么会出现这个问题？<br>问题解答：<br>这是因为Vue在进行DOM渲染时，出于性能考虑，会尽可能的复用已经存在的元素，而不是重新创建新的元素。<br>在上面的案例中，Vue内部会发现原来的input元素不再使用，直接作为else中的input来使用了。<br>解决方案：<br>如果我们不希望Vue出现类似重复利用的问题，可以给对应的input添加key。<br>并且我们需要保证key的不同。<br>v-show:<br>v-show的用法和v-if非常相似，也用于决定一个元素是否渲染：<br>v-if和v-show对比：<br>v-if和v-show都可以决定一个元素是否渲染，那么开发中我们如何选择呢？<br>v-if当条件为false时，压根不会有对应的元素在DOM中。<br>v-show当条件为false时，仅仅是将元素的display属性设置为none而已。<br>开发中如何选择呢？<br>当需要在显示和隐藏之间切换很频繁时，使用v-show。<br>当只有一次切换时，通过使用v-if。</p>
+<p>6.循环遍历<br>v-for遍历数组：<br>当我们有一组数据需要进行渲染时，我们就可以使用v-for来完成。<br>v-for的语法类似于JavaScript中的for循环。<br>格式如下：item in items的形式。<br>*我们来看一个简单的案例：<br>如果在遍历的过程中不需要使用索引值：<br>v-for=“movie in movies”<br>依次从movies中取出movie，并且在元素的内容中，我们可以使用mustache语法，来使用movie。<br>如果在遍历的过程中，我们需要拿到元素在数组中的索引值呢？<br>语法格式：v-for=（item，index）in items<br>其中的index就代表了取出的item在原数组的索引值。<br>v-for可以用来遍历对象：<br>具体如代码。</p>
+<pre><code>**组件的key属性
+    官方推荐我们在使用v-for时，给对应的元素或组件添加上一个：key属性。
+    为什么需要这个key属性呢（了解）？
+        这个其实和vue的虚拟DOM的Diff算法有关系。
+        这里我们借助React’s diff algorithm中的一张图来简单说明一下：
+    当某一层有很多相同的节点时，也就是列表节点时，我们希望插入一个新的节点。
+        我们希望可以在B和C之间加一个F，Diff算法默认执行起来是这样的。
+        即把C更新成F，D更新成C，E更新成D，最后再插入E，是不是很没有效率？
+    所以我们需要使用key来给每个节点做一个唯一标识。
+        Diff算法就可以正确的识别此节点。
+        找到正确的位置区插入新的节点。
+    所以一句话，key的作用主要是为了高效的更新虚拟DOM。
+
+**检测数组更新
+    因为vue是响应式的，所以当数据发生变化时，vue会自动检测数据变化，视图会发生对应的更新。
+    vue中包含了一组观察数组编译的方法，使用它们改变数组也会触发视图的更新。
+        push（）、pop（）、shift（）、unshift（）、splice（）、sort（）、reverse（）
+</code></pre>
+<p>7.阶段案例<br>具体看代码。</p>
+<pre><code>补充：JavaScript的高阶函数的使用
+编程范式：命令式编程/声明式
+编程范式：面向对象编程（第一公民：对象）/函数式编程（第一公民：函数）
+</code></pre>
+<p>8.v-model<br>表单控件在实际开发中是非常常见的。特别是对于用户信息的提交，需要大量的表单。<br>Vue中使用v-model指令来实现表单元素和数据的双向绑定。<br>案例解析：<br>当我们在输入框输入内容时。<br>因为input中的v-model绑定了message，所以会实时将输入的内容传递给message，message发生改变。<br>当message发生改变时，因为上面我们使用Mustache语法，将message的值插入到DOM中，所以DOM会发生响应的改变。<br>所以，通过v-model实现了双向的绑定。<br>当然，我们也可以将v-model用于textarea元素。</p>
+<pre><code>v-model其实是一个语法糖，它的背后本质是包含两个操作：
+    1.v-bind绑定一个value属性。
+    2.v-on指令给当前元素绑定input事件。
+&lt;input type=&quot;text&quot; v-model=&quot;message&quot;&gt;&lt;/input&gt;等同于
+&lt;input type=&quot;text&quot; :value=&quot;message&quot; @input=&quot;message=$event.target.value&quot;&gt;
+
+v-model：radio
+当存在多个单选框时
+
+v-model：checkbox    
+复选框分为两种情况：单个勾选框和多个勾选框
+单个勾选框：
+      v-model即为布尔值。
+      此时input的value并不影响v-model的值。
+ 多个复选框：
+      当是多个复选框时，因为可以选中多个，所以对应的data中属性是一个数组。
+      当选中某一个时，就会将input的value添加到数组中。
+
+ v-model：select
+     和checkbox一样，select也分单选和多选两种情况。
+ 单选：只能选中一个值。
+      v-model绑定的是一个值。
+      当我们选中option中的一个时，会将它对应的value赋值到mySelect中。
+ 多选：可以选中多个值。
+      v-model绑定的是一个数组。
+      当选中多个值时，就会将选中的option对应的value添加到数组mySelect中。
+
+值绑定：:value
+    初看vue官方值绑定的时候，疑惑。
+    但是仔细阅读之后，发现很简单，就是动态的给value赋值而已：
+        我们前面的value中的值，可以回头去看下，都是在定义input的时候直接给定的。
+        但是真实开发中，这些input的值可能是从网络获取或定义在data中的。
+        所以我们可以通过v-bind:value动态的给value绑定值。
+        这不是就是v-bind嘛？
+
+修饰符：
+    lazy修饰符：
+        默认情况下，v-model默认是在input事件中同步输入框的数据。
+        也就是说，一旦有数据发生改变对应的data中数据就会自动发生改变。
+        lazy修饰符可以让数据在失去焦点或者回车时才会更新：
+    number修饰符：
+        默认情况下，在输入框中无论我们输入的是字母还是数字，都会被当做字符串类型进行处理。
+        但是如果我们希望处理的是数字类型，那么最好直接将内容当做数字处理。
+        number修饰符可以让在输入框中输入的内容自动转成数字类型：
+    trim修饰符：
+        如果输入的内容首尾有很多空格，通常我们希望将其去除。
+        trim修饰符可以过滤内容左右两边的空格。
+
+    
+</code></pre>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">语法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/15/Vue2-2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Vue2-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/14/Vue2-1/">Vue2</a>
+    </h1>
+  
+
+        
+        <a href="/2021/07/14/Vue2-1/" class="archive-article-date">
   	<time datetime="2021-07-14T15:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-14</time>
 </a>
         
@@ -172,38 +423,37 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="第一章-邂逅Vue"><a href="#第一章-邂逅Vue" class="headerlink" title="第一章 邂逅Vue"></a>第一章 邂逅Vue</h2><p>一、认识Vue<br>(一) 为什么学习Vue<br>可能你的公司正要将原有的项目使用Vue进行重构。<br>也可能是你的公司新项目决定使用Vue的技术栈。<br>当然，如果你现在正在换工作，你会发现招聘前端的需求中，10个有8个都对Vue有或多或少的要求。<br>当然，作为学习者我们知道Vue目前非常火，可以说是前端必备的一个技能。</p>
-<pre><code>1.简单认识一下Vue
-Vue（读音/vju:/，类似于view），不要读错。
-Vue是一个渐进式的框架，什么是渐进式的呢？
-    渐进式意味着你可以将Vue作为你的应用的一部分嵌入其中，带来更丰富的交互体验；
-    或者如果你希望将更多的业务逻辑使用Vue实现，那么Vue的核心库以及其生态系统；
-    比如Core+Vue-router+Vuex，也可以满足你各种各样的需求。
-Vue有很多特点和Web开发中常见的高级功能？
-    解耦视图和数据；
-    可复用的组件；
-    前端路由技术；
-    状态管理；
-    虚拟DOM。
-学习Vue的前提？
-    从零学习Vue开发，并不需要你具备其他类似于Angular、React，甚至是jQuery的经验；
-    但是你需要具备一定的HTML、CSS、JavaScript基础。
+        <h2 id="第一章-认识Vue"><a href="#第一章-认识Vue" class="headerlink" title="第一章 认识Vue"></a>第一章 认识Vue</h2><p>一、 为什么学习Vue<br>可能你的公司正要将原有的项目使用Vue进行重构。<br>也可能是你的公司新项目决定使用Vue的技术栈。<br>当然，如果你现在正在换工作，你会发现招聘前端的需求中，10个有8个都对Vue有或多或少的要求。<br>当然，作为学习者我们知道Vue目前非常火，可以说是前端必备的一个技能。</p>
+<pre><code>(一)简单认识一下Vue
+    1.Vue（读音/vju:/，类似于view），不要读错。
+    2.Vue是一个渐进式的框架，什么是渐进式的呢？
+        (1) 渐进式意味着你可以将Vue作为你的应用的一部分嵌入其中，带来更丰富的交互体验；
+        (2) 或者如果你希望将更多的业务逻辑使用Vue实现，那么Vue的核心库以及其生态系统；
+        (3) 比如Core+Vue-router+Vuex，也可以满足你各种各样的需求。
+    3.Vue有很多特点和Web开发中常见的高级功能？
+        (1) 解耦视图和数据；
+        (2) 可复用的组件；
+        (3) 前端路由技术；
+        (4) 状态管理；
+        (5) 虚拟DOM。
+    4.学习Vue的前提？
+        (1) 从零学习Vue开发，并不需要你具备其他类似于Angular、React，甚至是jQuery的经验；
+        (2) 但是你需要具备一定的HTML、CSS、JavaScript基础。
 </code></pre>
-<p>(二) Vue安装方式<br>使用一个框架，第一步要做什么？ 答：安装下载它。</p>
-<pre><code>安装Vue的方式有很多：
-1.直接CDN引入
+<p>二、 Vue安装方式<br>使用一个框架，第一步要做什么？ 答：安装下载它。</p>
+<pre><code>(一)直接CDN引入
     你可以选择引入开发环境版本还是生产环境版本
     &lt;!-- 开发环境版本，包含了有帮助的命令行警告 --&gt;
     &lt;script  src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script &gt;
     &lt;!-- 生产环境版本，优化了尺寸和速度 --&gt;
     &lt;script  src=&quot;https://cdn.jsdelivr.net/npm/vue&quot;&gt;&lt;/script &gt;
-2.下载和引入
+(二)下载和引入
     开发环境  https://vuejs.org/js/vue.js
     生产环境  https://vuejs.org/js/vue.min.js
-3.NPM安装管理
+(三)NPM安装管理
     后续通过webpack和CLI的使用，我们使用该方式。
 </code></pre>
-<p>(三) Vue初体验<br>*Hello Vuejs<br>我们做了第一个Vue程序，体验一下Vue的响应式。<br>代码做了什么事情？<br>我们来阅读JavaScript代码，会发现创建了一个Vue对象。<br>创建Vue对象的时候，传入了一些options: {}<br>{}中包含了el属性：该属性决定了这个Vue对象挂载到哪一个元素上，<br>很明显，我们这里是挂载到了id为app的元素上。<br>{}中包含了data属性：该属性中通常会存储一些数据<br>这些数据可以是我们直接定义出来的，比如像上面这样。<br>也可能是来自网络，从服务器加载的。<br>浏览器执行代码的流程：<br>执行到10-13行代码显然出对应的HTML。<br>执行第16行代码创建Vue实例，并且对原HTML进行解析和修改。<br>并且，目前我们的代码是可以做到响应式的。</p>
+<p>三、 Vue初体验<br>*Hello Vuejs<br>我们做了第一个Vue程序，体验一下Vue的响应式。<br>代码做了什么事情？<br>我们来阅读JavaScript代码，会发现创建了一个Vue对象。<br>创建Vue对象的时候，传入了一些options: {}<br>{}中包含了el属性：该属性决定了这个Vue对象挂载到哪一个元素上，<br>很明显，我们这里是挂载到了id为app的元素上。<br>{}中包含了data属性：该属性中通常会存储一些数据<br>这些数据可以是我们直接定义出来的，比如像上面这样。<br>也可能是来自网络，从服务器加载的。<br>浏览器执行代码的流程：<br>执行到10-13行代码显然出对应的HTML。<br>执行第16行代码创建Vue实例，并且对原HTML进行解析和修改。<br>并且，目前我们的代码是可以做到响应式的。</p>
 <pre><code>*Vue列表展示
     现在，我们来展示一个更加复杂的数据：数据列表。
         比如我们现在从服务器请求过来一个列表。
@@ -229,7 +479,7 @@ Vue有很多特点和Web开发中常见的高级功能？
         它们的作用是什么？
         这些疑惑在后续学习中都会一一解开。        
 </code></pre>
-<p>(四) Vuejs的MVVM<br>Vue中的MVVM（Model View ViewModel）【View &lt;-&gt; ViewModel&lt;-&gt; Model】<br>什么是MVVM呢？<br>通常我们学习一个概念，最好的方式是去看维基百科。<br>https//zh.wikipedia.org/wiki/MVVM。<br>维基百科的官方解释，自己看。</p>
+<p>四、 Vue的MVVM<br>Vue中的MVVM（Model View ViewModel）【View &lt;-&gt; ViewModel&lt;-&gt; Model】<br>什么是MVVM呢？<br>通常我们学习一个概念，最好的方式是去看维基百科。<br>https//zh.wikipedia.org/wiki/MVVM。<br>维基百科的官方解释，自己看。</p>
 <pre><code>    我们直接来看Vue的MVVM：
     
     View &lt;-&gt; ViewModel&lt;-&gt; Model
@@ -246,8 +496,8 @@ Vue有很多特点和Web开发中常见的高级功能？
         |                               |                                   |
               （@click）               (new Vue() )                (methods属性里add)
 </code></pre>
-<p>(五) 创建Vue实例传入的options<br>你会发现，我们在创建Vue实例的时候，传入了一个对象options。<br>这个options中可以包含哪些选项呢？<br>详细解析：<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/">https://cn.vuejs.org/v2/api/</a><br>目前掌握这些选项：<br>el：<br>类型：string|HTMLElement<br>作用：决定之后Vue实例会管理哪一个DOM<br>data:<br>类型：Object|Function(组件当中data必须是一个函数)<br>作用：Vue实例对应的数据对象。<br>methods:<br>类型：{[key:string]:Function}<br>作用：定义属于Vue的一些方法，可以在其他地方调用，也可以在指令中使用。<br>如何区分函数和方法？<br>函数是带有名称（named）和参数的js代码代码段，可以一次定义，多次调用。<br>当将函数和对象合写在一起时，函数就变成了“方法”(method)。</p>
-<p>(六) Vue的生命周期<br>生命周期：事物从诞生到消亡的整个过程。<br>Vue生命周期：看生命周期表。</p>
+<p>五、 创建Vue实例传入的options<br>你会发现，我们在创建Vue实例的时候，传入了一个对象options。<br>这个options中可以包含哪些选项呢？<br>详细解析：<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/">https://cn.vuejs.org/v2/api/</a><br>目前掌握这些选项：<br>el：<br>类型：string|HTMLElement<br>作用：决定之后Vue实例会管理哪一个DOM<br>data:<br>类型：Object|Function(组件当中data必须是一个函数)<br>作用：Vue实例对应的数据对象。<br>methods:<br>类型：{[key:string]:Function}<br>作用：定义属于Vue的一些方法，可以在其他地方调用，也可以在指令中使用。<br>如何区分函数和方法？<br>函数是带有名称（named）和参数的js代码代码段，可以一次定义，多次调用。<br>当将函数和对象合写在一起时，函数就变成了“方法”(method)。</p>
+<p>六、 Vue的生命周期<br>生命周期：事物从诞生到消亡的整个过程。<br>Vue生命周期：看生命周期表。</p>
 
       
 
@@ -261,7 +511,7 @@ Vue有很多特点和Web开发中常见的高级功能？
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">认识Vue-js</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Vue-js</a>
         		</li>
       		
 		</ul>
@@ -271,7 +521,7 @@ Vue有很多特点和Web开发中常见的高级功能？
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/14/Vue2/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/07/14/Vue2-1/">展开全文 >></a>
         </p>
       
 
@@ -465,7 +715,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">认识Vue-js</a>
+                <a href="javascript:void(0)" class="js-tag color3">语法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Vue-js</a>
               </li>
             
             <div class="clearfix"></div>
